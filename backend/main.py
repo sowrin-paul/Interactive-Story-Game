@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+from core.config import settings
 
 app = FastAPI(
-    title="",
-    description="",
+    title="My API",
+    description="Let's build this...",
     version="0.1.0",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -12,7 +13,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
