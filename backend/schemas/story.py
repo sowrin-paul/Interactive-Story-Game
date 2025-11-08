@@ -34,14 +34,19 @@ class StoryBase(BaseModel):
     session_id: Optional[str] = None
 
     class Config:
-        from_attribute = True
+        from_attributes = True
 
 
-class CreateStoryRequest(StoryBase):
+class CreateStoryRequest(BaseModel):
+    theme: str
+
+
+class StoryResponse(StoryBase):
     id: int
     created_at: datetime
     root_node: CompleteStoryResponse
     all_nodes: Dict[int, CompleteStoryResponse]
 
     class Config:
-        from_attribute = True
+        from_attributes = True
+

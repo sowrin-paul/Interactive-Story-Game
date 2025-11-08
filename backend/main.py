@@ -3,6 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from core.config import settings
 from routers import story, jobs
+from db.database import create_tables
+
+create_tables()
 
 app = FastAPI(
     title="My API",
