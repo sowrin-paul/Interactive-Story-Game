@@ -8,6 +8,9 @@ from langchain_core.output_parsers import PydanticOutputParser
 from core.prompts import STORY_PROMPT
 from models.story import Story, StoryNode
 from core.models import StoryNodeLLM, StoryOptionalLLM, StoryLLMResponse
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class StoryGenerator:
     @classmethod
@@ -27,7 +30,7 @@ class StoryGenerator:
                 "human",
                 f"Create the story with this theme: {theme}"
             )
-        ]).partial(format_instruction=story_parser.get_format_instructions())
+        ]).partial(format_instructions=story_parser.get_format_instructions())
 
         raw_response = llm.invoke(prompt.invoke({}))
         response_text = raw_response
@@ -51,10 +54,11 @@ class StoryGenerator:
     @classmethod
     def _process_story_node(cls, db: Session, story_id:int, node_data: StoryNodeLLM, is_root: bool = False) -> StoryNode:
         node = StoryNode(
-            sotry_id=story_id,
+            story_id=story_id,
             content=node_data.content if hasattr(node_data,  "content") else node_data["content"],
             is_root=is_root,
-            isWinningEnding=node_data.isWinningEnding if hasattr(node_data,  "isWinningEnding") else node_data["isWinningEnding"],
+            is_ending=node_data.isEnding if hasattr(node_data,  "isEnding") else node_data["isEnding"],
+            is_winning_ending=node_data.isWinningEnding if hasattr(node_data,  "isWinningEnding") else node_data["isWinningEnding"],
             options=[]
         )
         db.add(node)
