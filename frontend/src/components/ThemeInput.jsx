@@ -1,18 +1,19 @@
-import {useState} form "react"
+import {useState} from "react";
 
 function ThemeInput({onSubmit}) {
-    const [theme, setTheme] = useState("");
-    const [error, setError] = useState("");
+    const [theme, setTheme]= useState("");
+    const [error, setError] = useState("")
 
-    const handleSubmit = (e) {
-        e.preventDefault()
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
         if (!theme.trim()) {
-                setError("Please enter a theme name");
-                return
+            setError("Please enter a theme name");
+            return
         }
-    }
 
+        onSubmit(theme);
+    }
 
     return <div className="theme-input-container">
         <h2>Generate Your Adventure</h2>
@@ -24,12 +25,14 @@ function ThemeInput({onSubmit}) {
                     type="text"
                     value={theme}
                     onChange={(e) => setTheme(e.target.value)}
-                    placeholder="Enter a theme (e.g. pirates, space...)"
+                    placeholder="Enter a theme (e.g. prirates, space, medieval...)"
                     className={error ? 'error' : ''}
                 />
                 {error && <p className="error-text">{error}</p>}
             </div>
-            <button type="submit" className="generate-btn">Generate Story</button>
+            <button type="submit" className='generate-btn'>
+                Generate Story
+            </button>
         </form>
     </div>
 }

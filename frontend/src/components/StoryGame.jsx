@@ -69,6 +69,14 @@ function StoryGame({ story, onNewStory }) {
                     </div>
                 }
             </div>}
+            <div className="story-controls">
+                <button onClick={restartStory} className="reset-btn">
+                    Restart Story
+                </button>
+            </div>
+            {onNewStory && <button onClick={onNewStory} className="new-story-btn">New Story</button>}
         </div>
     </div>
 }
+
+export default StoryGame;
